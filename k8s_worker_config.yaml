@@ -1,0 +1,8 @@
+---
+ - name: worked node configuration
+   hosts: all
+   tasks: 
+     - name: join the nodes to cluster
+       shell: |
+         kubeadm join 10.0.0.4:6443 --token omhi36.1kgaeblyr2a6h9qa \
+         --discovery-token-ca-cert-hash sha256:f6a2e9f1270440dc202ea07ac6c3fcde775cf88d5b1ca74106df16de1c9b9c67

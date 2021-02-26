@@ -1,0 +1,5 @@
+1. Write Ansible role to install Docker & setup Kubernetes cluster
+2.
+  a. setup docker and ansible nodes in jenkins
+  b. automate jenkins pipeline to build the docker image, once build the docker image should store in ansible server 
+  c. take the was file from the location and deploy that image using ansible playbook

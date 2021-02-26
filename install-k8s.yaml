@@ -1,0 +1,38 @@
+# install kubernets 
+---
+ - name: isntall kubernetes
+   become: yes
+   hosts: web
+   tasks:
+     - name: install apt-transport-https curl
+       apt:
+         name: "{{ item }}"
+         state: present
+         update_cache: yes
+       loop:
+         - apt-transport-https
+         - curl
+    - name: add official gpg key
+      apt_key:
+        url: 'https://packages.cloud.google.com/apt/doc/apt-key.gpg'
+        state: present
+    - name: add repository
+       copy:
+         src: kubernetes.list
+         dest: /etc/apt/sources.list.d/
+    - name: install kubelet kubeadm kubectl
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl
+    - name: hold the kubelet kubeadm and kubelet packages
+      dpkg_selections:
+        name: "{{ item }}"
+        selection: hold
+      loop:
+        - kubelet
+        - kubeadm
+        - kubectl

@@ -1,0 +1,32 @@
+# install jenkins
+---
+- name: install jenkins
+  hosts: app
+  become: yes
+  tasks:
+    - name: install java
+      apt: 
+        name: openjdk-8-jdk
+        state: present
+        update_cache: yes
+    - name: download the key
+      apt_key:
+        url: 'https://pkg.jenkins.io/debian-stable/jenkins.io.key'
+        state: present
+
+    - name: add jenkins repositoty
+      apt_repository:
+        repo: 'deb https://pkg.jenkins.io/debian-stable binary/'
+        state: present
+        filename: '/etc/apt/sources.list.d/jenkins.list'
+  
+    - name: install jenkins
+      apt:
+        name: jenkins
+        update_cache: yes
+        state: present
+        
+    - name: start jenkins service
+      service:
+        name: jenkins
+        state: started

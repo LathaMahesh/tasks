@@ -1,0 +1,22 @@
+#build docker file and push to repository
+---
+- name: build docker file and push to docker hub
+  become: yes
+  hosts: app 
+  tasks:
+    - name: create root directory for docker image
+      file:
+        path: /tmp/docker
+        state: directory
+    
+    - name: copy the file to root directory
+      copy:
+        src: ./Dockerfile
+        dest: /tmp/docker
+    
+    - name: build the image
+      docker_image:
+        name: gameoflife
+        tag: 1.0
+        path: tmp/docker
+        state: present

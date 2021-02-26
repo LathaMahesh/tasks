@@ -1,0 +1,14 @@
+---
+  - name: create a containerd
+    become: yes
+    hosts: app
+    tasks:
+      - name: create container:
+        docker_container:
+          image: qualitythought/gameoflife:07112020
+          name: gol
+          state: started
+          ports:
+            - 8080:8080
+          volumes:
+            - /tmp:/tmp
