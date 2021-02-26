@@ -20,3 +20,6 @@
         tag: 1.0
         path: tmp/docker
         state: present
+      notify:
+        - create container
+       
